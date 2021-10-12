@@ -16,13 +16,57 @@ class ViewController: UIViewController {
     @IBOutlet weak var tipControl: UISegmentedControl!
     @IBOutlet weak var totalLabel: UILabel!
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("view will appear!")
+        //a good place to retrieve the default tip
+        //percentage from userDefaults
+        
+        // Access UserDefaults again
+        let defaults = UserDefaults.standard
+        
+        let tip1 = defaults.integer(forKey: "defaultTip1")
+        let tip2 = defaults.integer(forKey: "defaultTip2")
+        let tip3 = defaults.integer(forKey: "defaultTip3")
+        
+        
+        tipControl.setTitle(String(tip1), forSegmentAt: 0)
+        tipControl.setTitle(String(tip2), forSegmentAt: 1)
+        tipControl.setTitle(String(tip3), forSegmentAt: 2)
+    }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("view did appear")
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print("view will disappear")
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("view did disappear")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        self.title = "Tip Calculator"
     }
 
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    @IBAction func onTap(_sender: Any){
+        //we use this line of code so that the keyboard
+        //is hidden after we are done using it and click
+        //somewhere else
+        view.endEditing(true)
+    }
+    
     @IBAction func calculateTip(_ sender: Any) {
         
         //get the bill amount reading from the text field
