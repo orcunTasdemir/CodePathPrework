@@ -9,30 +9,45 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    //the bill amount text field control dragged
+    //define 3 tip parameters
+    var tip1 = 15.0
+    var tip2 = 18.0
+    var tip3 = 20.0
     
+    //the bill amount text field
     @IBOutlet weak var billAmountTextField: UITextField!
+    //the tip amount label
     @IBOutlet weak var tipAmountLabel: UILabel!
+    //segmented tip control
     @IBOutlet weak var tipControl: UISegmentedControl!
+    //total price label
     @IBOutlet weak var totalLabel: UILabel!
     
+    //this function is to update the default tip values
+    //shown on the segmented tip control by pulling
+    //userdefaults values from the settings view controller
     override func viewWillAppear(_ animated: Bool) {
+        
         super.viewWillAppear(animated)
         print("view will appear!")
-        //a good place to retrieve the default tip
-        //percentage from userDefaults
         
-        // Access UserDefaults again
+        //Access user defaults
         let defaults = UserDefaults.standard
         
-        let tip1 = defaults.integer(forKey: "defaultTip1")
-        let tip2 = defaults.integer(forKey: "defaultTip2")
-        let tip3 = defaults.integer(forKey: "defaultTip3")
+        //update tip values from the userDefaults
+        tip1 = defaults.double(forKey: "defaultTip1")
+        tip2 = defaults.double(forKey: "defaultTip2")
+        tip3 = defaults.double(forKey: "defaultTip3")
         
+        //Create new titles for the tip values
+        let tip1String = String(Int(tip1)) + "%"
+        let tip2String = String(Int(tip2)) + "%"
+        let tip3String = String(Int(tip3)) + "%"
         
-        tipControl.setTitle(String(tip1), forSegmentAt: 0)
-        tipControl.setTitle(String(tip2), forSegmentAt: 1)
-        tipControl.setTitle(String(tip3), forSegmentAt: 2)
+        //update the title to the segments
+        tipControl.setTitle(tip1String, forSegmentAt: 0)
+        tipControl.setTitle(tip2String, forSegmentAt: 1)
+        tipControl.setTitle(tip3String, forSegmentAt: 2)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -74,9 +89,10 @@ class ViewController: UIViewController {
         
         //get the total tip amount by multiplying
         //the bill and tip percentage
-        let tipPercentages = [0.15, 0.18, 0.2]
         
-        let tip = bill * tipPercentages[tipControl.selectedSegmentIndex]
+        let tipPercentages =  [tip1/100, tip2/100, tip3/100]
+        
+        let tip = (bill * tipPercentages[tipControl.selectedSegmentIndex])
         
         let total = bill + tip
         
