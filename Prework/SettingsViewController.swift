@@ -2,7 +2,7 @@
 //  SettingsViewController.swift
 //  Prework
 //
-//  Created by Toshie Stewart on 2021/10/12.
+//  Created by Orcun Tasdemir on 2021/10/12.
 //
 
 import UIKit
