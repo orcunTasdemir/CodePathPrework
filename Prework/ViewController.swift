@@ -9,11 +9,6 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    //define 3 tip parameters
-    var tip1 = 15.0
-    var tip2 = 18.0
-    var tip3 = 20.0
-    
     //the bill amount text field
     @IBOutlet weak var billAmountTextField: UITextField!
     //the tip amount label
@@ -22,6 +17,20 @@ class ViewController: UIViewController {
     @IBOutlet weak var tipControl: UISegmentedControl!
     //total price label
     @IBOutlet weak var totalLabel: UILabel!
+    //Party size text field outlet
+    @IBOutlet weak var partySizeTextField: UITextField!
+    //outlet for the stepper
+    @IBOutlet weak var stepperOutlet: UIStepper!
+    //outlet for the perperson total label
+    @IBOutlet weak var perPersonTotal: UILabel!
+    
+    //function for the partySize stepper so that everytime
+    //the stepper is updated we can also update the
+    //partySizeTextLabel
+    @IBAction func partyStepper(_ sender: Any) {
+        let partySize = Int(stepperOutlet.value)
+        partySizeTextField.text = String(partySize)
+    }
     
     //this function is to update the default tip values
     //shown on the segmented tip control by pulling
@@ -31,13 +40,13 @@ class ViewController: UIViewController {
         super.viewWillAppear(animated)
         print("view will appear!")
         
-        //Access user defaults
+        //Access user defaults when the view is about to appear
         let defaults = UserDefaults.standard
         
         //update tip values from the userDefaults
-        tip1 = defaults.double(forKey: "defaultTip1")
-        tip2 = defaults.double(forKey: "defaultTip2")
-        tip3 = defaults.double(forKey: "defaultTip3")
+        let tip1 = defaults.double(forKey: "defaultTip1")
+        let tip2 = defaults.double(forKey: "defaultTip2")
+        let tip3 = defaults.double(forKey: "defaultTip3")
         
         //Create new titles for the tip values
         let tip1String = String(Int(tip1)) + "%"
@@ -48,6 +57,56 @@ class ViewController: UIViewController {
         tipControl.setTitle(tip1String, forSegmentAt: 0)
         tipControl.setTitle(tip2String, forSegmentAt: 1)
         tipControl.setTitle(tip3String, forSegmentAt: 2)
+    }
+    
+    @IBAction func onTap(_sender: Any){
+        //we use this line of code so that the keyboard
+        //is hidden after we are done using it and click
+        //somewhere else
+        view.endEditing(true)
+    }
+    
+    //our main function to calculate the tip value and the totals
+    //everytime the button is pressed we are calling this function
+    @IBAction func calculateButton(_ sender: Any) {
+        
+        //get the bill amount reading from the text field
+        let bill = Double(billAmountTextField.text!) ?? 0
+        
+        //access the defaults
+        let defaults = UserDefaults.standard
+        
+        //set the tip values from the userDefaults
+        let tip1 = defaults.double(forKey: "defaultTip1")
+        let tip2 = defaults.double(forKey: "defaultTip2")
+        let tip3 = defaults.double(forKey: "defaultTip3")
+        
+        //setting the array
+        let tipPercentages =  [tip1/100, tip2/100, tip3/100]
+        
+        //accessing the tip value through our array using the
+        //selectedSegmentIndex function
+        let tip = (bill * tipPercentages[tipControl.selectedSegmentIndex])
+        
+        //total then would be the tip value plus the bill
+        let total = bill + tip
+        
+        //now we can update the tip amount label
+        tipAmountLabel.text = String(format: "$%.2f", tip)
+        
+        //and also update the total amount
+        totalLabel.text = String(format: "$%.2f", total)
+        
+        //partysize is calculated from the text field
+        let partySize =  Double(partySizeTextField.text!) ?? 0
+        
+        //per person total is calculated
+        let perPersonBill = total / partySize
+        
+        //perPersonTotal is then updated
+        perPersonTotal.text =  String(format: "$%.2f", perPersonBill)
+        
+        //calculations are complete!
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -74,36 +133,6 @@ class ViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-    @IBAction func onTap(_sender: Any){
-        //we use this line of code so that the keyboard
-        //is hidden after we are done using it and click
-        //somewhere else
-        view.endEditing(true)
-    }
-    
-    @IBAction func calculateTip(_ sender: Any) {
-        
-        //get the bill amount reading from the text field
-        let bill = Double(billAmountTextField.text!) ?? 0
-        
-        //get the total tip amount by multiplying
-        //the bill and tip percentage
-        
-        let tipPercentages =  [tip1/100, tip2/100, tip3/100]
-        
-        let tip = (bill * tipPercentages[tipControl.selectedSegmentIndex])
-        
-        let total = bill + tip
-        
-        //now we can update the tip amount label
-        tipAmountLabel.text = String(format: "$%.2f", tip)
-        
-        //and also update the total amount
-        totalLabel.text = String(format: "$%.2f", total)
-        
-    }
-    
     
 }
 

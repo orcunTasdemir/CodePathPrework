@@ -9,10 +9,6 @@ import UIKit
 
 class SettingsViewController: UIViewController {
     
-    var tip1 = 15.0
-    var tip2 = 18.0
-    var tip3 = 20.0
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -42,7 +38,7 @@ class SettingsViewController: UIViewController {
     @IBAction func darkToggle(_ sender: Any) {
         if(toggle.isOn){
             print("the toggle is on!")
-            self.view.backgroundColor = UIColor.black
+            UIWindow().overrideUserInterfaceStyle = .dark
         }
         if (!toggle.isOn){
             print("the toggle is off")
@@ -60,13 +56,13 @@ class SettingsViewController: UIViewController {
         let defaults = UserDefaults.standard
         
         //all 3 tips are being saved to the userDefault variables
-        tip1 = Double(defaultTip1Field.text!) ?? 0
+        let tip1 = Double(defaultTip1Field.text!) ?? 15.0
         defaults.set(tip1, forKey: "defaultTip1")
         
-        tip2 = Double(defaultTip2Field.text!) ?? 0
+        let tip2 = Double(defaultTip2Field.text!) ?? 18.0
         defaults.set(tip2, forKey: "defaultTip2")
         
-        tip3 = Double(defaultTip3Field.text!) ?? 0
+        let tip3 = Double(defaultTip3Field.text!) ?? 20.0
         defaults.set(tip3, forKey: "defaultTip3")
         
         //the default values that are set are being recorded
@@ -77,9 +73,10 @@ class SettingsViewController: UIViewController {
         super.viewWillAppear(animated)
         
         //Access UserDefaults
-        defaultTip1Field.text! = String(Int(tip1))
-        defaultTip2Field.text! = String(Int(tip2))
-        defaultTip3Field.text! = String(Int(tip3))
+        let defaults = UserDefaults.standard
+        defaultTip1Field.text = String(defaults.double(forKey: "defaultTip1"))
+        defaultTip2Field.text = String(defaults.double(forKey: "defaultTip2"))
+        defaultTip3Field.text = String(defaults.double(forKey: "defaultTip3"))
     }
 
     /*
