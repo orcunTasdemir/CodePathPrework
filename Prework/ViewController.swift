@@ -12,6 +12,10 @@ class ViewController: UIViewController {
     //access the defaults
     let defaults = UserDefaults.standard
     
+    //get the number formatter so we can control how many
+    //digits we want
+    let numFormatter = NumberFormatter()
+    
     //the bill amount text field
     @IBOutlet weak var billAmountTextField: UITextField!
     //the tip amount label
@@ -131,6 +135,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.title = "Tip Calculator"
+        numFormatter.numberStyle = .currency
+        numFormatter.maximumFractionDigits = 2
+        numFormatter.minimumFractionDigits = 2
     }
 
     override func didReceiveMemoryWarning() {
