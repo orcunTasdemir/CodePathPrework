@@ -117,8 +117,10 @@
                                             <constraint firstAttribute="width" constant="163" id="06d-VO-iTH"/>
                                             <constraint firstAttribute="height" constant="56" id="h27-9n-LLU"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                         <color key="tintColor" systemColor="labelColor"/>
-                                        <state key="normal" title="Button"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Calculate"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Calculate">
                                             <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="18"/>
                                         </buttonConfiguration>

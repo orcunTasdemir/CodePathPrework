@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EE9D9A71271C9784006B93E0 /* UIButtonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE9D9A70271C9784006B93E0 /* UIButtonExtensions.swift */; };
 		F28E14A3271625E300A73992 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28E14A2271625E300A73992 /* SettingsViewController.swift */; };
 		F2C2D66D2714DF1D000DC059 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C2D66C2714DF1D000DC059 /* AppDelegate.swift */; };
 		F2C2D66F2714DF1D000DC059 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2C2D66E2714DF1D000DC059 /* SceneDelegate.swift */; };
@@ -37,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EE9D9A70271C9784006B93E0 /* UIButtonExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtensions.swift; sourceTree = "<group>"; };
 		F28E14A2271625E300A73992 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		F2C2D6692714DF1D000DC059 /* Prework.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Prework.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2C2D66C2714DF1D000DC059 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 		F2C2D66B2714DF1D000DC059 /* Prework */ = {
 			isa = PBXGroup;
 			children = (
+				EE9D9A70271C9784006B93E0 /* UIButtonExtensions.swift */,
 				F2C2D66C2714DF1D000DC059 /* AppDelegate.swift */,
 				F2C2D66E2714DF1D000DC059 /* SceneDelegate.swift */,
 				F2C2D6702714DF1D000DC059 /* ViewController.swift */,
@@ -261,6 +264,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE9D9A71271C9784006B93E0 /* UIButtonExtensions.swift in Sources */,
 				F2C2D6712714DF1D000DC059 /* ViewController.swift in Sources */,
 				F2C2D66D2714DF1D000DC059 /* AppDelegate.swift in Sources */,
 				F2C2D66F2714DF1D000DC059 /* SceneDelegate.swift in Sources */,

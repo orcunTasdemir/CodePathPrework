@@ -72,8 +72,9 @@ class ViewController: UIViewController {
     
     //our main function to calculate the tip value and the totals
     //everytime the button is pressed we are calling this function
-    @IBAction func calculateButton(_ sender: Any) {
+    @IBAction func calculateButton(_ sender: UIButton) {
         
+        sender.startAnimatingPressActions()
         //get the bill amount reading from the text field
         let bill = Double(billAmountTextField.text!) ?? 0
         
