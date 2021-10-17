@@ -9,6 +9,9 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    //access the defaults
+    let defaults = UserDefaults.standard
+    
     //the bill amount text field
     @IBOutlet weak var billAmountTextField: UITextField!
     //the tip amount label
@@ -40,8 +43,9 @@ class ViewController: UIViewController {
         super.viewWillAppear(animated)
         print("view will appear!")
         
-        //Access user defaults when the view is about to appear
-        let defaults = UserDefaults.standard
+        //for every reopening of the app we override the style
+        //from the userDefaults parameter
+        navigationController!.overrideUserInterfaceStyle = defaults.bool(forKey: "darkMode") ? .dark : .light
         
         //update tip values from the userDefaults
         let tip1 = defaults.double(forKey: "defaultTip1")
@@ -72,9 +76,6 @@ class ViewController: UIViewController {
         
         //get the bill amount reading from the text field
         let bill = Double(billAmountTextField.text!) ?? 0
-        
-        //access the defaults
-        let defaults = UserDefaults.standard
         
         //set the tip values from the userDefaults
         let tip1 = defaults.double(forKey: "defaultTip1")
@@ -108,6 +109,7 @@ class ViewController: UIViewController {
         
         //calculations are complete!
     }
+    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)

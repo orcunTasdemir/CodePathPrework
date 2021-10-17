@@ -9,41 +9,41 @@ import UIKit
 
 class SettingsViewController: UIViewController {
     
+    //Access user defaults once
+    let defaults = UserDefaults.standard
+    
+    //when the view loads set the title to "Settings"
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        if(toggle.isOn){
-            print("the toggle is on!")
-        }
-        
-        // Do any additional setup after loading the view.
+        title = "Settings"
     }
     
-   
+    //we use this line of code so that the keyboard
+    //is hidden after we are done using it and click
+    //somewhere else
     @IBAction func onTap(_ sender: Any){
-        //we use this line of code so that the keyboard
-        //is hidden after we are done using it and click
-        //somewhere else
         view.endEditing(true)
-        
     }
     
     //the outlets are connected
     @IBOutlet weak var defaultTip1Field: UITextField!
     @IBOutlet weak var defaultTip2Field: UITextField!
     @IBOutlet weak var defaultTip3Field: UITextField!
+    @IBOutlet weak var darkModeToggle: UISwitch!
     
-    @IBOutlet weak var toggle: UISwitch!
-    
+    //darkmodetoggle function here saves the switch
+    //configuration to defaults and calls the implement
+    //darkmode function to decide whether we want the
+    //darkmode or not
     @IBAction func darkToggle(_ sender: Any) {
-        if(toggle.isOn){
-            print("the toggle is on!")
-            UIWindow().overrideUserInterfaceStyle = .dark
-        }
-        if (!toggle.isOn){
-            print("the toggle is off")
-            self.view.backgroundColor = UIColor.white
-        }
+        defaults.set(darkModeToggle.isOn, forKey: "darkMode")
+        defaults.synchronize()
+        implementDarkMode()
+    }
+    
+    func implementDarkMode()
+    {
+        navigationController!.overrideUserInterfaceStyle = defaults.bool(forKey: "darkMode") ? .dark : .light
     }
     
     //we will use this function to access userdefaults
@@ -51,9 +51,6 @@ class SettingsViewController: UIViewController {
     //the settings view disappears
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-
-        //Access UserDefaults
-        let defaults = UserDefaults.standard
         
         //all 3 tips are being saved to the userDefault variables
         let tip1 = Double(defaultTip1Field.text!) ?? 15.0
@@ -72,8 +69,13 @@ class SettingsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        //Access UserDefaults
-        let defaults = UserDefaults.standard
+        //before the view appears we want to set the
+        //darkMode toggle to the already saved configuration
+        //in the userDefaults
+        darkModeToggle.setOn(defaults.bool(forKey: "darkMode"), animated: false)
+        //we implement the darkMode again on every appear
+        implementDarkMode()
+    
         defaultTip1Field.text = String(defaults.double(forKey: "defaultTip1"))
         defaultTip2Field.text = String(defaults.double(forKey: "defaultTip2"))
         defaultTip3Field.text = String(defaults.double(forKey: "defaultTip3"))
