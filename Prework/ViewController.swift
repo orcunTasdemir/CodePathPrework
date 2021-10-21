@@ -67,11 +67,8 @@ class ViewController: UIViewController {
         tipControl.setTitle(tip3String, forSegmentAt: 2)
     }
     
-    @IBAction func onTap(_sender: Any){
-        //we use this line of code so that the keyboard
-        //is hidden after we are done using it and click
-        //somewhere else
-        view.endEditing(true)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
     
     //our main function to calculate the tip value and the totals

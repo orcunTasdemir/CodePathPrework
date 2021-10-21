@@ -21,9 +21,9 @@ class SettingsViewController: UIViewController {
     //we use this line of code so that the keyboard
     //is hidden after we are done using it and click
     //somewhere else
-    @IBAction func onTap(_ sender: Any){
-        view.endEditing(true)
-    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+            self.view.endEditing(true)
+        }
     
     //the outlets are connected
     @IBOutlet weak var defaultTip1Field: UITextField!
