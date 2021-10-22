@@ -39,6 +39,40 @@ class ViewController: UIViewController {
         partySizeTextField.text = String(partySize)
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    //our main function to calculate the tip value and the totals
+    //everytime the button is pressed we are calling this function
+    @IBAction func calculateButton(_ sender: UIButton) {
+        sender.startAnimatingPressActions()
+        //get the bill amount reading from the text field
+        let bill = Double(billAmountTextField.text!) ?? 0
+        //set the tip values from the userDefaults
+        let tip1 = defaults.double(forKey: "defaultTip1")
+        let tip2 = defaults.double(forKey: "defaultTip2")
+        let tip3 = defaults.double(forKey: "defaultTip3")
+        //setting the array
+        let tipPercentages =  [tip1/100, tip2/100, tip3/100]
+        //accessing the tip value through our array using the
+        //selectedSegmentIndex function
+        let tip = (bill * tipPercentages[tipControl.selectedSegmentIndex])
+        //total then would be the tip value plus the bill
+        let total = bill + tip
+        //now we can update the tip amount label
+        tipAmountLabel.text = String(format: "$%.2f", tip)
+        //and also update the total amount
+        totalLabel.text = String(format: "$%.2f", total)
+        //partysize is calculated from the text field
+        let partySize =  Double(partySizeTextField.text!) ?? 0
+        //per person total is calculated
+        let perPersonBill = total / partySize
+        //perPersonTotal is then updated
+        perPersonTotal.text =  String(format: "$%.2f", perPersonBill)
+        //calculations are complete!
+    }
+    
     //this function is to update the default tip values
     //shown on the segmented tip control by pulling
     //userdefaults values from the settings view controller
@@ -65,51 +99,6 @@ class ViewController: UIViewController {
         tipControl.setTitle(tip1String, forSegmentAt: 0)
         tipControl.setTitle(tip2String, forSegmentAt: 1)
         tipControl.setTitle(tip3String, forSegmentAt: 2)
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
-    }
-    
-    //our main function to calculate the tip value and the totals
-    //everytime the button is pressed we are calling this function
-    @IBAction func calculateButton(_ sender: UIButton) {
-        
-        sender.startAnimatingPressActions()
-        //get the bill amount reading from the text field
-        let bill = Double(billAmountTextField.text!) ?? 0
-        
-        //set the tip values from the userDefaults
-        let tip1 = defaults.double(forKey: "defaultTip1")
-        let tip2 = defaults.double(forKey: "defaultTip2")
-        let tip3 = defaults.double(forKey: "defaultTip3")
-        
-        //setting the array
-        let tipPercentages =  [tip1/100, tip2/100, tip3/100]
-        
-        //accessing the tip value through our array using the
-        //selectedSegmentIndex function
-        let tip = (bill * tipPercentages[tipControl.selectedSegmentIndex])
-        
-        //total then would be the tip value plus the bill
-        let total = bill + tip
-        
-        //now we can update the tip amount label
-        tipAmountLabel.text = String(format: "$%.2f", tip)
-        
-        //and also update the total amount
-        totalLabel.text = String(format: "$%.2f", total)
-        
-        //partysize is calculated from the text field
-        let partySize =  Double(partySizeTextField.text!) ?? 0
-        
-        //per person total is calculated
-        let perPersonBill = total / partySize
-        
-        //perPersonTotal is then updated
-        perPersonTotal.text =  String(format: "$%.2f", perPersonBill)
-        
-        //calculations are complete!
     }
     
     
